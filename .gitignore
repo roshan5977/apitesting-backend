@@ -1,0 +1,8 @@
+harbingerapitest_venv/
+__pycache__/
+
+
+lib/
+lib64/
+bin/
+include/
