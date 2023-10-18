@@ -44,9 +44,9 @@ def get_schemas():
             tuple_list = []
             for key, val in schema_values.items():
                   if key in required:
-                      inner_dict = {"parameter":key,"type":val.get('type'),"placeholder": val.get('title'),"required":True}
+                      inner_dict = {"name":key,"type":val.get('type'),"placeholder": val.get('title'),"required":True}
                   else:
-                      inner_dict = {"parameter":key,"type":val.get('type'),"placeholder": val.get('title'),"required":True}
+                      inner_dict = {"name":key,"type":val.get('type'),"placeholder": val.get('title'),"required":True}
                 #   if key in required:
                 #       inner_dict = {key: (val.get('type'), val.get('title'),True),}
                 #   else:
