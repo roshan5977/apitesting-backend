@@ -19,7 +19,7 @@ origins = [
 # Cors error handling
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -117,12 +117,13 @@ def api_request(method: str, path: str, url: str, req_body: dict = None):
 
         if response.status_code == 422:
             print("Request was unprocessable. Check the response body for more details.")
-
+            return {'status':"422","respose body": response.text}
+        if response.status_code == 200 or response.status_code == 201:
+            return {"status": response.status_code,"respose body": response.text}
 
     except Exception as e:
         print(f"Error making the request: {e}")
-
-    return {"status": "Request processed","respose body": response.text}
+    return {"status": response.status_code,"respose body": response.text}
 
 
 

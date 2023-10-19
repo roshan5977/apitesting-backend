@@ -1,6 +1,14 @@
-# from sqlalchemy import Boolean, Column, String, Integer, DateTime, Time, ForeignKey
-# from database import Base
-# from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, Column, String, Integer, DateTime, Time, ForeignKey
+from database import Base
+from sqlalchemy.orm import relationship
+
+
+
+
+
+
+
+
 
 
 # class Application(Base):
@@ -55,3 +63,4 @@
 #     schema_property_name: Column(String)
 #     schema_property_type: Column(String)
 #     is_property_required: Column(Boolean)
+
