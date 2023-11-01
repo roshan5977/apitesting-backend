@@ -95,6 +95,7 @@ def get_api_info(api_info,method):
     pathvariable=[]
     queryparam=[]
     reqbody=[]
+    responseschema=[]
     securityparam={}
 
     json_file_path = "test.json"
@@ -113,6 +114,16 @@ def get_api_info(api_info,method):
                reqbody=get_schema(extracted_text)
             else:
                print("No match found")
+        
+        # response schema
+        schema_path=paths.get(method, {}).get("responses", {}).get("200", {}).get("content", {}).get("application/json", {}).get("schema", {}).get("$ref")
+        if schema_path: 
+            match = re.search(r'/([^/]+)$', schema_path)
+            if match:
+               extracted_text = match.group(1)
+               responseschema=get_schema(extracted_text)
+            else:
+               print("No match found")
 
 
         # path variables or query parameters
@@ -122,7 +133,8 @@ def get_api_info(api_info,method):
             required=pathvar.get("required")
             pathorreq=pathvar.get("in")
             type=pathvar.get("schema",{}).get("type")
-            onepathvar={"name":name,"required":required,"type":type}
+            placeholder=pathvar.get("schema",{}).get("title")
+            onepathvar={"name":name,"required":required,"type":type,"placeholder":placeholder}
             if pathorreq=="query":queryparam.append(onepathvar)
             if pathorreq=="path":pathvariable.append(onepathvar)
 
@@ -133,7 +145,7 @@ def get_api_info(api_info,method):
             print("type",type)
     
 
-        return {"reqbody": reqbody,"pathvariable": pathvariable,"queryparam": queryparam,"securityparameters": securityparam}
+        return {"reqbody": reqbody,"pathvariable": pathvariable,"queryparam": queryparam,"securityparameters": securityparam,"responseschema":responseschema}
 
     except json.JSONDecodeError:
         return {"error": "Invalid JSON format"}
