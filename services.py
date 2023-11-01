@@ -46,7 +46,7 @@ def get_schemas():
                   if key in required:
                       inner_dict = {"name":key,"type":val.get('type'),"placeholder": val.get('title'),"required":True}
                   else:
-                      inner_dict = {"name":key,"type":val.get('type'),"placeholder": val.get('title'),"required":True}
+                      inner_dict = {"name":key,"type":val.get('type'),"placeholder": val.get('title'),"required":False}
                   tuple_list.append(inner_dict)
             
             schemas_dict[schema] = tuple_list
